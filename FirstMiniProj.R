@@ -54,24 +54,35 @@ complete <- function(directory, id=1:332){
   
   #Creates a list of files, full.names set to true to get the folder name as well
   files_list <- list.files(directory, full.names = TRUE)
-  nobs <- 0
-  #This creates an empty data frame
+  
+  #Creates an empty data frame for the final output
   finalframe <- data.frame()
   
   #for loop that loops through the files_list, made possible with id
   for (i in id){
+    #recreates empty data frame for evaluation of the next csv file
     mydataframe <- data.frame()
+    #binds the csv file to empty data frame
     mydataframe <- rbind(mydataframe, read.csv(files_list[i]))
+    
+    #compares sulfate and nitrate columns if they both have values that aren't NA
+    #will be left with a subset that contains both values for both columns
     datasubset <- mydataframe[which(!is.na(mydataframe[, "sulfate"]) & !is.na(mydataframe[, "nitrate"])),]
+    
+    #creates temporary data frame to store the id and num of observations (got by using nrow in datasubset)
     tempdf <- data.frame(i, nrow(datasubset))
+    #rbinds the finalframe and the temporary dataframe
     finalframe <- rbind(finalframe, tempdf)
   }
   
+  #renaming of the columns
+  colnames(finalframe)[1] <- "id"
+  colnames(finalframe)[2] <- "nobs"
   
-  
+  #returns the result frame
   return (finalframe)
   
-  #Simply returns the result stored
+
 
 }
 
@@ -80,4 +91,4 @@ complete <- function(directory, id=1:332){
 
 complete("specdata", 1)
 complete("specdata", c(2,4,8,10,12))
-complete("specdata", 1)
+complete("specdata", 30:25)
