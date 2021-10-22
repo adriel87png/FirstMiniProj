@@ -56,21 +56,28 @@ complete <- function(directory, id=1:332){
   files_list <- list.files(directory, full.names = TRUE)
   nobs <- 0
   #This creates an empty data frame
-  mydataframe <- data.frame()
+  finalframe <- data.frame()
   
   #for loop that loops through the files_list, made possible with id
   for (i in id){
+    mydataframe <- data.frame()
     mydataframe <- rbind(mydataframe, read.csv(files_list[i]))
+    datasubset <- mydataframe[which(!is.na(mydataframe[, "sulfate"]) & !is.na(mydataframe[, "nitrate"])),]
+    tempdf <- data.frame(i, nrow(datasubset))
+    finalframe <- rbind(finalframe, tempdf)
   }
   
-  datasubset <- mydataframe[which(mydataframe[, "nitrate"]) != NA,]
   
-  return (nrow(datasubset))
+  
+  return (finalframe)
   
   #Simply returns the result stored
 
 }
 
+
 #Samples
 
+complete("specdata", 1)
+complete("specdata", c(2,4,8,10,12))
 complete("specdata", 1)
