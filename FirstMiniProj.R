@@ -2,6 +2,9 @@
 #Code by Jett Adriel M. Rabe
 #CMSC 197-2 Data Science
 
+########
+#1.)
+
 #Creates a function named pollutantmean, takes in parameters:
 #directory -> pathway to file
 #pollutant -> name of pollutant
@@ -37,3 +40,37 @@ pollutantmean("specdata", "sulfate", 1:10) #Ans: 4.064128
 pollutantmean("specdata", "nitrate", 70:72) #Ans: 1.706047
 
 pollutantmean("specdata", "nitrate", 23) #Ans: 1.280833
+
+###############################################
+
+
+########
+#2.)
+
+#Creates a function named complete, takes in parameters:
+#directory -> pathway to file
+#id -> an integer vector
+complete <- function(directory, id=1:332){
+  
+  #Creates a list of files, full.names set to true to get the folder name as well
+  files_list <- list.files(directory, full.names = TRUE)
+  nobs <- 0
+  #This creates an empty data frame
+  mydataframe <- data.frame()
+  
+  #for loop that loops through the files_list, made possible with id
+  for (i in id){
+    mydataframe <- rbind(mydataframe, read.csv(files_list[i]))
+  }
+  
+  datasubset <- mydataframe[which(mydataframe[, "nitrate"]) != NA,]
+  
+  return (nrow(datasubset))
+  
+  #Simply returns the result stored
+
+}
+
+#Samples
+
+complete("specdata", 1)
