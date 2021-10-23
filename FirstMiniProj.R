@@ -92,3 +92,70 @@ complete <- function(directory, id=1:332){
 complete("specdata", 1)
 complete("specdata", c(2,4,8,10,12))
 complete("specdata", 30:25)
+
+
+####################################################
+########
+#3.)
+
+#Creates a function named corr, takes in parameters:
+#directory -> pathway to file
+#threshold -> number of complete observations one must have (more like a passing score, must hit this mark)
+corr <- function(directory, threshold = 0){
+  
+  #Creates a list of files, full.names set to true to get the folder name as well
+  files_list <- list.files(directory, full.names = TRUE)
+  
+  #will create empty vector for storing results later
+  myvector <- c()
+
+  
+  #for loop that loops through the files_list, there are 332 csv files, hence 1:332
+  for (i in 1:332){
+    
+    #This creates an empty data frame
+    mydataframe <- data.frame()
+    
+    #fills in the empty dataframe with data from the current csv file
+    mydataframe <- rbind(mydataframe, read.csv(files_list[i]))
+    
+
+    #I couldve used my number 2, but in case of independent checking, I used complete.cases
+    #makes sure the rows/data have both sulfate and nitrate in them
+    #We will use this as opposed to mydataframe
+    completedata <- mydataframe[complete.cases(mydataframe),]
+    
+    #need this to check if it appeases the threshold
+    rownumber <- nrow(completedata)
+    
+    #the rownumber indicates how much observations there are
+    #if the number od observations is enough, we proceed
+    if (rownumber > threshold){
+      
+      #Using the cor built-in function as indicated by instructions
+      #we get the correlation of nitrate and sulfate
+      correlationresult <- cor(completedata$nitrate, completedata$sulfate)
+      
+      #store the result of this by concatenating it to myvector
+      myvector <- c(myvector, correlationresult)
+    }
+    
+  }
+
+  #returns the result vector
+  return (myvector)
+  
+}
+
+#sample
+cr <- corr("specdata", 150)
+head(cr);summary(cr)
+
+cr <- corr("specdata", 400)
+head(cr);summary(cr)
+
+cr <- corr("specdata", 5000)
+head(cr);summary(cr);length(cr)
+
+cr <- corr("specdata")
+head(cr);summary(cr);length(cr)
