@@ -130,7 +130,7 @@ corr <- function(directory, threshold = 0){
     rownumber <- nrow(completedata)
     
     #the rownumber indicates how much observations there are
-    #if the number od observations is enough, we proceed
+    #if the number of observations is enough, we proceed
     if (rownumber > threshold){
       
       #Using the cor built-in function as indicated by instructions
