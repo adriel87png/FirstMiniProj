@@ -159,3 +159,21 @@ head(cr);summary(cr);length(cr)
 
 cr <- corr("specdata")
 head(cr);summary(cr);length(cr)
+
+
+#######################
+########
+#4.)
+
+#reads and stores contents of the csv file into outcome
+outcome <- read.csv('outcome-of-care-measures.csv', colClasses = "character")
+#just to check the top contents
+head(outcome)
+
+#colClasses were character earlier so need to coerce as numeric column 11
+#Since we will be using that specific column
+outcome[, 11] <- as.numeric(outcome[, 11])
+
+#rename the main title, changed color to skyblue and renamed the label on x-axis
+#this creates a histogram
+hist(outcome[, 11], main = "Hospital 30-Day Death (Mortality) Rates from Heart Attack", xlab = "Deaths", col = "skyblue")
