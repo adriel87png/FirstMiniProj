@@ -1,9 +1,10 @@
 #First Mini Project
 #Code by Jett Adriel M. Rabe
 #CMSC 197-2 Data Science
+#Finished 10/24/2021 15:16
 
 ########
-#1.)
+#1.) POLLUTANT MEAN
 
 #Creates a function named pollutantmean, takes in parameters:
 #directory -> pathway to file
@@ -45,7 +46,7 @@ pollutantmean("specdata", "nitrate", 23) #Ans: 1.280833
 
 
 ########
-#2.)
+#2.) COMPLETE CASES
 
 #Creates a function named complete, takes in parameters:
 #directory -> pathway to file
@@ -96,7 +97,7 @@ complete("specdata", 30:25)
 
 ####################################################
 ########
-#3.)
+#3.) CORRELATION
 
 #Creates a function named corr, takes in parameters:
 #directory -> pathway to file
@@ -163,7 +164,7 @@ head(cr);summary(cr);length(cr)
 
 #######################
 ########
-#4.)
+#4.) HISTOGRAM
 
 #reads and stores contents of the csv file into outcome
 outcome <- read.csv('outcome-of-care-measures.csv', colClasses = "character")
